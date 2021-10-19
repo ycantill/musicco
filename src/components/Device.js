@@ -54,8 +54,8 @@ export const Device = () => {
 
   return (
       <div className={classes.deviceContainer}>
-            <Controls moveNotes={moveNotes}></Controls>
-            <Instrument notes={instrumentNotesState}></Instrument>
+            <Controls moveNotes={moveNotes}/>
+            <Instrument notes={instrumentNotesState}/>
       </div>
   );
 }
