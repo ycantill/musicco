@@ -1,23 +1,24 @@
 import { createUseStyles } from "react-jss";
-import { InstrumentNotes } from "./InstrumentNotes";
-import { InstrumentScale } from "./InstrumentScale";
+import { InstrumentNote } from "./InstrumentNote";
 
 const useStyles = createUseStyles({
   instrumentContainer: {
-    display: "grid",
-    gridTemplateRows: "40px auto",
-    gridTemplateColumns: "100%",
-  }
+    display: "flex",
+    flexDirection: "row",
+    borderLeft: "1px solid black",
+  },
 });
 
 export const Instrument = (props) => {
   const classes = useStyles();
-  const notes = [...props.notes.values()];
+  const instrumentNotes = [...props.instrumentNotes.values()];
+  const { toggleSelectNote } = props;
 
   return (
     <div className={classes.instrumentContainer}>
-      <InstrumentScale notes={notes} />
-      <InstrumentNotes notes={notes} />
-    </div>
+    {instrumentNotes.map((note, index) => (
+      <InstrumentNote key={note.frequency} note={note} toggleSelectNote={toggleSelectNote}>{ index + 1 }</InstrumentNote>
+    ))}
+  </div>
   );
 };

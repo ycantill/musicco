@@ -6,6 +6,7 @@ export class Note {
     this.name = name;
     this.octave = octave && parseInt(octave);
     this.playing = false;
+    this.selected = false;
     this.accidental = name.includes('#');
   }
 
