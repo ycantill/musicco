@@ -1,28 +1,41 @@
 import { createUseStyles } from "react-jss";
 
 const useStyles = createUseStyles({
-  instrumentNote: note => {
-    const backgroundColor = (note.playing && 'red') || note.accidental ? 'black' : 'white';
-    const color = (note.playing && 'white') || note.accidental ? 'white' : 'black';
+  instrumentNote: (note) => {
+    const backgroundColor =
+      (note.playing && "green") || note.accidental ? "black" : "white";
 
     return {
-      flex: "1",
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-      color,
       backgroundColor,
-      borderRight: "solid 1px black",
-      "&:last-child": {
-        borderRight: "none",
-      }
-    }
+      flex: 1,
+      display: "flex",
+      alignItems: "start",
+      borderRight: "solid 1px black"
+    };
   },
+  noteSelection: (note) => ({
+    width: "100%",
+    height: "20%",
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    color: (note.accidental || note.selected) ? "white" : "black",
+    backgroundColor: note.selected && 'green'
+  }),
 });
 
-export const InstrumentNote = props => {
-  const { note, children } = props;
+export const InstrumentNote = (props) => {
+  const { note, toggleSelectNote, children } = props;
   const classes = useStyles(note);
 
-  return <div className={classes.instrumentNote}>{children}</div>;
+  return (
+    <div className={classes.instrumentNote}>
+      <div
+        className={classes.noteSelection}
+        onClick={() => toggleSelectNote(note)}
+      >
+        {children}
+      </div>
+    </div>
+  );
 };
