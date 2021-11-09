@@ -30,7 +30,22 @@ export const Device = () => {
           );
           return new Map([...previousInstrumentNotesState, [frequency, note]]);
         } else {
-          return previousInstrumentNotesState;
+          // REFACTOR
+          let octave = 2;          
+          let octavedNote = undefined;
+
+          while(octavedNote === undefined) {
+            octavedNote = previousInstrumentNotesState.get(parseInt(frequency / octave)) || previousInstrumentNotesState.get(parseInt(frequency * octave));
+            octave++;
+          }
+
+          const note = Object.assign(
+            {},
+            octavedNote,
+            { playing, octaved: playing ? octave - 1 : undefined }
+          );
+          
+          return new Map([...previousInstrumentNotesState, [note.frequency, note]]);
         }
       });
     }
