@@ -1,11 +1,12 @@
 import { useState } from "react";
 
-export const App = () => {
+export const Recorder = () => {
   const [message, setMessage] = useState("Press Record");
   const [recorder, setRecorder] = useState();
   const [masterBuffer, setMasterBuffer] = useState();
   const [duration, setDuration] = useState(0);
   const [audioContext, setAudioContext] = useState(new AudioContext());
+  const [seconds, setSeconds] = useState(0);
   const sampleRate = 44100;
   let data = [];
   let audioBuffers = [];
@@ -98,19 +99,24 @@ export const App = () => {
 
   const play = async () => {
     setMessage("Playing...");
-    try {
-      await audioContext.audioWorklet.addModule("worklets/audio-processor.js");
-    } catch (error) {
-      console.log("Error", error);
-    }
-    // const audioProcessorNode = new AudioWorkletNode(
-    //   audioContext,
-    //   'audio-processor'
-    // );
+    
+    await audioContext.audioWorklet.addModule("worklets/audio-processor.js");
+
+    const audioProcessorNode = new AudioWorkletNode(
+      audioContext,
+      "audio-processor"
+    );
+    audioProcessorNode.port.onmessage = (event) => {
+      const second = event.data.second;
+      // Handling data from the processor.
+      setSeconds((previousSeconds) => {
+        return previousSeconds + second;
+      });
+    };
     const song = audioContext.createBufferSource();
 
     song.buffer = masterBuffer;
-    song.connect(audioContext.destination);
+    song.connect(audioProcessorNode).connect(audioContext.destination);
     song.start();
 
     song.onended = () => {
@@ -135,6 +141,7 @@ export const App = () => {
       </div>
       <br />
       <span>{message}</span>
+      <span>{seconds}</span>
     </div>
   ) : (
     <button onClick={start}>Start</button>
