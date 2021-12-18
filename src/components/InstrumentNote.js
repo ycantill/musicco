@@ -3,7 +3,7 @@ import { createUseStyles } from "react-jss";
 const useStyles = createUseStyles({
   instrumentNote: (note) => {
     const backgroundColor =
-      note.playing ? (note.selected ? "green" : "red") : (note.accidental ? "black" : "white");
+      note.playing ? (note.selected ? "green" : "darkgray") : (note.accidental ? "black" : "white");
 
     return {
       backgroundColor,
@@ -15,7 +15,7 @@ const useStyles = createUseStyles({
   },
   noteSelection: (note) => {
 
-    const color = note.selected ? "white" : (note.accidental ? "white" : (note.playing ? "white" : "black"));
+    const color = note.selected ? "white" : (note.accidental ? "white" : "black");
     
     return {
       width: "100%",
