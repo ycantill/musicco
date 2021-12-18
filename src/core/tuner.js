@@ -39,7 +39,7 @@ const getAllNotesNames = (note, octaves) => {
         .split('|');
 }
 
-const tune = (start = 'C', octaves = 1) => {
+const tune = (start = 'C3', octaves = 1) => {
   const { name: startName, accidental = '', octave: startOctave = 4 } = parseNote(start);
   const allNotesNames = getAllNotesNames(`${startName}${accidental}`, octaves);
   const octavedFrequencyOfCNote = getFrequencyBySemitones(

@@ -5,9 +5,11 @@ export class Note {
     this.frequency = frequency;
     this.name = name;
     this.octave = octave && parseInt(octave);
+    this.accidental = name.includes('#');
+    // On action attributes
     this.playing = false;
     this.selected = false;
-    this.accidental = name.includes('#');
+    this.octaved = undefined;
   }
 
   // TODO: REFACTOR

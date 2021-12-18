@@ -16,9 +16,15 @@ export const Instrument = (props) => {
 
   return (
     <div className={classes.instrumentContainer}>
-    {instrumentNotes.map((note, index) => (
-      <InstrumentNote key={note.frequency} note={note} toggleSelectNote={toggleSelectNote}>{ index + 1 }</InstrumentNote>
-    ))}
-  </div>
+      {instrumentNotes.map((note, index) => (
+        <InstrumentNote
+          key={note.frequency}
+          note={note}
+          toggleSelectNote={toggleSelectNote}
+          noteNumber={index + 1}
+        >
+        </InstrumentNote>
+      ))}
+    </div>
   );
 };

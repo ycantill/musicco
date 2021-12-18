@@ -1,12 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import { Musicco } from './components/Musicco';
+import { App } from './components/App';
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   <React.StrictMode>
-    <Musicco />
+    <App />
   </React.StrictMode>,
   document.getElementById('root')
 );
